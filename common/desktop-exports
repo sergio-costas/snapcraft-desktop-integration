@@ -110,6 +110,9 @@ if [ "%WITH_GRAPHICS%" != "false" ]; then
     fi
   fi
 
+  # Set where to find GBM backends
+  export GBM_BACKENDS_PATH=${GBM_BACKENDS_PATH:+$GBM_BACKENDS_PATH:}${SNAP_DESKTOP_RUNTIME}/usr/lib/$ARCH/gbm
+
   # Workaround in snapd for proprietary nVidia drivers mounts the drivers in
   # /var/lib/snapd/lib/gl that needs to be in LD_LIBRARY_PATH
   # Without that OpenGL using apps do not work with the nVidia drivers.
