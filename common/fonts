@@ -40,6 +40,12 @@ EOF
 
 export FONTCONFIG_FILE="${SNAP_COMMON}/fontconfig/fonts.conf"
 
-"${SNAP_DESKTOP_RUNTIME}/usr/bin/fc-cache" --force --system-only --verbose || echo "configure hook: font generation failed"
+"${SNAP_DESKTOP_RUNTIME}/usr/bin/fc-cache" -h |grep no-sleep > /dev/null
+
+if [ $? -eq 0 ] ; then
+  "${SNAP_DESKTOP_RUNTIME}/usr/bin/fc-cache" --no-sleep --force --system-only --verbose || echo "configure hook: font generation failed"
+else
+  "${SNAP_DESKTOP_RUNTIME}/usr/bin/fc-cache" --force --system-only --verbose || echo "configure hook: font generation failed"
+fi
 
 exec "$@"
